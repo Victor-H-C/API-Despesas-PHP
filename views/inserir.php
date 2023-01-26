@@ -22,6 +22,8 @@
             <input class="w-100" type="number" name="valor" id="valor" step="0.01" required>
             <label for="data">Data:</label>
             <input class="w-100" type="datetime-local" id="data" name="data" required>
+            <label for="cep">CEP:</label>
+            <input class="w-100" type="text" id="cep" name="cep" required>
             <div class="w-100 d-flex justify-content-between">
                 <div class="w-50 mr-1">
                     <label for="idcategoria">Categoria:</label>

@@ -26,7 +26,8 @@ Rodar o arquivo db.sql para criação da base de dados a ser consumida
         $_POST['data'])
         $_POST['idcategoria'])
         $_POST['idpagamento'])
-        
+        $_POST['cep']
+
 * /api/despesas [POST] -> remove despesa
     params:
         $_POST['method'] = 'delete'
@@ -39,6 +40,7 @@ Rodar o arquivo db.sql para criação da base de dados a ser consumida
         $_POST['data'])
         $_POST['idcategoria'])
         $_POST['idpagamento'])
+        $_POST['cep']
 
 * /api/despesas/categorias [GET] -> retorna lista de categorias
 

@@ -81,7 +81,7 @@ class Despesas extends DbConnect
                                             INNER JOIN TB_TipoPagamento tipo ON
                                             despesa.IdTipoPagamento = tipo.IdTipoPagamento
                                             INNER JOIN TB_Categorias categoria ON
-                                            despesa.IdCategorias = categoria.IdCategorias WHERE MONTH(DataCompra) = MONTH(NOW());');
+                                            despesa.IdCategorias = categoria.IdCategorias WHERE MONTH(DataCompra) = MONTH(NOW()) ORDER BY DataCompra;');
         $sql->execute();
         $data = $sql->FetchAll();
 
@@ -289,10 +289,10 @@ class Despesas extends DbConnect
         $dompdf->stream();
     }
 
-    public static function setDespesas($valor, $data, $idcategoria, $idpagamento)
+    public static function setDespesas($valor, $data, $idcategoria, $idpagamento, $cep)
     {
-        $sql = DbConnect::Connect()->prepare('INSERT INTO TB_Despesas(Valor, DataCompra, IdCategorias, IdTipoPagamento) VALUES(?, ?, ?, ?);');
-        $sql->execute(array($valor, $data, $idcategoria, $idpagamento));
+        $sql = DbConnect::Connect()->prepare('INSERT INTO TB_Despesas(Valor, DataCompra, IdCategorias, IdTipoPagamento, CEP) VALUES(?, ?, ?, ?, ?);');
+        $sql->execute(array($valor, $data, $idcategoria, $idpagamento, $cep));
 
         $verify = DbConnect::Connect()->prepare('SELECT Id FROM TB_Despesas ORDER BY Id DESC');
         $verify->execute();
@@ -312,12 +312,10 @@ class Despesas extends DbConnect
         return (json_encode(self::$obj, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
     }
 
-    public static function update($id, $valor, $data, $idcategoria, $idpagamento){
+    public static function update($id, $valor, $data, $idcategoria, $idpagamento, $cep){
 
-        $sql = DbConnect::Connect()->prepare('SELECT ID FROM TB_Despesas WHERE Id = ?');
-
-        $sql = DbConnect::Connect()->prepare('UPDATE Tb_Despesas SET Valor = ?, DataCompra = ?, IdCategorias = ?, IdTipoPagamento = ? WHERE Id = ?');
-        $sql->execute(array($valor, $data, $idcategoria, $idpagamento, $id));
+        $sql = DbConnect::Connect()->prepare('UPDATE Tb_Despesas SET Valor = ?, DataCompra = ?, IdCategorias = ?, IdTipoPagamento = ?, CEP = ? WHERE Id = ?');
+        $sql->execute(array($valor, $data, $idcategoria, $idpagamento, $cep, $id));
 
         self::$obj['data'] = $id;
 

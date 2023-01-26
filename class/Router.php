@@ -64,7 +64,7 @@ class Router{
                 }
 
                 if($_POST['method'] == 'update'){
-                    return Despesas::update($id, $valor, $data, $idcategoria, $idpagamento);
+                    return Despesas::update($id, $valor, $data, $idcategoria, $idpagamento, $_POST['cep']);
                 }
 
                 return $errorObj;
@@ -76,11 +76,12 @@ class Router{
             if(!isset($_POST["valor"]) ||
                !isset($_POST['data']) ||
                !isset($_POST['idcategoria']) ||
-               !isset($_POST['idpagamento']) )
+               !isset($_POST['idpagamento']) ||
+               !isset($_POST['cep']))
                {
                 return $errorObj;
             }
-            return Despesas::setDespesas($valor, $data, $idcategoria, $idpagamento);
+            return Despesas::setDespesas($valor, $data, $idcategoria, $idpagamento, $_POST['cep']);
         };
 
         if($_SERVER['REQUEST_METHOD'] == 'GET'){
